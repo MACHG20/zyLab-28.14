@@ -1,5 +1,5 @@
 //git repository link
-//group members
+//Mac Glaesser (48855318) and Jonathan Havard (49099030)
 
 #include <iostream>
 #include <iomanip>
