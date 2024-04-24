@@ -1,24 +1,53 @@
-//git repository link
-//Mac Glaesser (48855318) and Jonathan Havard (49099030)
-
 #include <iostream>
 #include <iomanip>
 using namespace std;
 
 #include "ShoppingCart.h"
 
-void PrintMenu() {
-   /* Type your code here */
-   
+void PrintMenu(){
+   cout << "a - Add item to cart " <<endl;
+   cout << "d - Remove item from cart" << endl;
+   cout << "c - Change item quantity" << endl;
+   cout << "i - Output items' descriptions" << endl;
+   cout << "o = Output shopping cart" << endl;
+   cout << "q - Quit" << endl;
+   cout << endl;
+   cout << "Choose an option:" <<endl;
 }
 
 void ExecuteMenu(char option, ShoppingCart& theCart) {
-   /* Type your code here */
-   
+   if (option == 'a'){
+      ShoppingCart::AddItem(theCart);
+   }
+   if (option == 'd'){
+      ShoppingCart::RemoveItem(theCart);
+   }
+   if (option == 'c'){
+      ShoppingCart::ModifyItem(theCart);
+   }
+   if (option == 'i'){
+      ShoppingCart::PrintDescription(theCart);
+   }
+   if (option == 'o'){
+      ShoppingCart::PrintTotal(theCart);
+   }
+   if (option == 'q'){
+      break;
+   }
 }
 
 int main() {
-   /* Type your code here */
-   
+   for (bool i=false; i == false){
+   PrintMenu();
+   char option;
+   cin << option;
+   if (option == 'a' || 'd' || 'c' || 'i' || 'o' || 'q'){
+      i = true;
+      ExecuteMenu(option, theCart);
+   }
+   else {
+      cout << "invalid input" << endl;
+   }
+   }
    return 0;
 }
