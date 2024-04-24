@@ -31,9 +31,6 @@ void ExecuteMenu(char option, ShoppingCart& theCart) {
    if (option == 'o'){
       ShoppingCart::PrintTotal(theCart);
    }
-   if (option == 'q'){
-      break;
-   }
 }
 
 int main() {
@@ -41,10 +38,12 @@ int main() {
    PrintMenu();
    char option;
    cin << option;
-   if (option == 'a' || 'd' || 'c' || 'i' || 'o' || 'q'){
-      i = true;
+   if (option == 'a' || 'd' || 'c' || 'i' || 'o'){
       ExecuteMenu(option, theCart);
    }
+   if (option == 'q'){
+      i = true;
+      }
    else {
       cout << "invalid input" << endl;
    }
