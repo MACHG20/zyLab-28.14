@@ -4,7 +4,6 @@ using namespace std;
 #include "ShoppingCart.h"
 
 //constructors
-ShoppingCart::ShoppingCart();
 ShoppingCart::ShoppingCart(string name, string date){
    customerName = name;
    currentDate = date;
@@ -12,11 +11,11 @@ ShoppingCart::ShoppingCart(string name, string date){
 
 
 //getters
-string ShoppingCart::GetCustomerName(){
-   return name;
+string ShoppingCart::GetCustomerName() const{
+   return customerName;
    }
-string ShoppingCart::GetDate(){
-   return date;
+string ShoppingCart::GetDate() const{
+   return currentDate;
    }
 int ShoppingCart::GetNumItemsInCart(){
    return cartItems.size();
@@ -26,7 +25,7 @@ double ShoppingCart::GetCostOfCart(){
     for(int i = 0; i<cartItems.size(); ++i){
        costOfCart += cartItems.at(i).GetPrice()*cartItems.at(i).GetQuantity();
     }
-   return costOfCart
+   return costOfCart;
    }
 
 //Mutators
@@ -38,9 +37,7 @@ void ShoppingCart::RemoveItem(string itemName){
    bool Found = false;
    for(int i = 0; i<cartItems.size(); ++i){
       if(cartItems.at(i).GetName() == itemName){
-         
-         //still need to remove item
-         
+         cartItems.erase(cartItems.begin()+1);         
          Found = true;
          break;
       }
@@ -54,22 +51,50 @@ void ShoppingCart::ModifyItem(ItemToPurchase item){
    bool found = false;
    for(int i = 0; i<cartItems.size(); ++i){
       if(cartItems.at(i).GetName() == item.GetName()){
-
-         //have to check if parameter has default values
-         //modify if it does not         
+         if(item.GetDescription() != "none"){
+            cartItems.at(i).SetDescription(item.GetDescription());
+         }
+         if(item.GetPrice() != 0){
+            cartItems.at(i).SetPrice(item.GetPrice());
+         }
+         if(item.GetQuantity() != 0) {
+            cartItems.at(i).SetQuantity(item.GetQuantity());
+         }
       }
       found = true;
       break;
    }
-   if(!Found){
+   if(!found){
       cout << "Item not found in cart. Nothing removed." <<endl;
    }
 }
 
 //Print Functions
 void ShoppingCart::PrintTotal(){
-   cout << ItemToPurchase.costOfCart << endl;
+   if(cartItems.empty()){
+      cout<<"SHOPPING CART IS EMPTY" << endl;
    }
+   else{
+      cout << GetCustomerName() << "'s Shopping Cart - " << GetDate() << endl;
+      cout << "Number of Items: " << GetNumItemsInCart() << endl << endl;
+
+      for (int i = 0; i < cartItems.size(); ++i) {
+         cout << cartItems.at(i).GetName() << " @ $" << cartItems.at(i).GetPrice() << " = $" << (cartItems.at(i).GetPrice() * cartItems.at(i).GetQuantity()) << endl;
+      }
+
+      cout << endl << "Total: $" << GetCostOfCart() << endl;
+    }
+}
 void ShoppingCart::PrintDescriptions(){
-   cout << ItemToPurchase.description << endl;
+   if (cartItems.empty()) {
+      cout << "SHOPPING CART IS EMPTY" << endl;
+    } 
+    else {
+      cout << GetCustomerName() << "'s Shopping Cart - " << GetDate() << endl << endl;
+      cout << "Item Descriptions" << endl;
+      for (int i = 0; i < cartItems.size(); ++i) {
+         cout << cartItems[i].GetName() << ": " << cartItems[i].GetDescription() << endl;
+      }
    }
+}
+
