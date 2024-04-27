@@ -4,6 +4,11 @@ using namespace std;
 #include "ShoppingCart.h"
 
 //constructors
+ShoppingCart::ShoppingCart() {
+    customerName = "none";
+    currentDate = "January 1, 2016";
+}
+
 ShoppingCart::ShoppingCart(string name, string date){
    customerName = name;
    currentDate = date;
@@ -37,7 +42,7 @@ void ShoppingCart::RemoveItem(string itemName){
    bool Found = false;
    for(int i = 0; i<cartItems.size(); ++i){
       if(cartItems.at(i).GetName() == itemName){
-         cartItems.erase(cartItems.begin()+1);         
+         cartItems.erase(cartItems.begin()+i);         
          Found = true;
          break;
       }
@@ -60,12 +65,13 @@ void ShoppingCart::ModifyItem(ItemToPurchase item){
          if(item.GetQuantity() != 0) {
             cartItems.at(i).SetQuantity(item.GetQuantity());
          }
-      }
-      found = true;
-      break;
+         found = true;
+         break;
+      }  
    }
    if(!found){
-      cout << "Item not found in cart. Nothing removed." <<endl;
+      cout << "Item not found in cart. Nothing modified." <<endl;
+      cout<<endl;
    }
 }
 
@@ -73,6 +79,7 @@ void ShoppingCart::ModifyItem(ItemToPurchase item){
 void ShoppingCart::PrintTotal(){
    if(cartItems.empty()){
       cout<<"SHOPPING CART IS EMPTY" << endl;
+      cout<<endl;
    }
    else{
       cout << GetCustomerName() << "'s Shopping Cart - " << GetDate() << endl;
@@ -95,6 +102,7 @@ void ShoppingCart::PrintDescriptions(){
       for (int i = 0; i < cartItems.size(); ++i) {
          cout << cartItems[i].GetName() << ": " << cartItems[i].GetDescription() << endl;
       }
+      cout<<endl;
    }
 }
 
