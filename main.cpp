@@ -3,50 +3,145 @@
 using namespace std;
 
 #include "ShoppingCart.h"
+#include "ItemToPurchase.h"
 
-void PrintMenu(){
-   cout << "a - Add item to cart " <<endl;
-   cout << "d - Remove item from cart" << endl;
-   cout << "c - Change item quantity" << endl;
-   cout << "i - Output items' descriptions" << endl;
-   cout << "o = Output shopping cart" << endl;
-   cout << "q - Quit" << endl;
-   cout << endl;
-   cout << "Choose an option:" <<endl;
+void PrintMenu() {
+    cout << "MENU" << endl;
+    cout << "a - Add item to cart" << endl;
+    cout << "d - Remove item from cart" << endl;
+    cout << "c - Change item quantity" << endl;
+    cout << "i - Output items' descriptions" << endl;
+    cout << "o - Output shopping cart" << endl;
+    cout << "q - Quit" << endl;
+    cout<<endl;
 }
 
-void ExecuteMenu(char option, ShoppingCart& theCart) {
-   if (option == 'a'){
-      ShoppingCart::AddItem(theCart);
-   }
-   if (option == 'd'){
-      ShoppingCart::RemoveItem(theCart);
-   }
-   if (option == 'c'){
-      ShoppingCart::ModifyItem(theCart);
-   }
-   if (option == 'i'){
-      ShoppingCart::PrintDescription(theCart);
-   }
-   if (option == 'o'){
-      ShoppingCart::PrintTotal(theCart);
-   }
+void ExecuteMenu(char choice, ShoppingCart &cart) {
+    switch(choice) {
+      case 'a':{
+         // Add item to cart
+         cout << "\nADD ITEM TO CART" << endl;
+         string itemName, itemDescription;
+         int itemPrice, itemQuantity;
+
+         cout << "Enter the item name:"<<endl;
+         cin.ignore();
+         getline(cin, itemName);
+          
+         cout << "Enter the item description:"<<endl;
+         getline(cin, itemDescription);
+
+         cout << "Enter the item price:"<<endl;
+         cin >> itemPrice;
+
+         cout << "Enter the item quantity:"<<endl;
+         cin >> itemQuantity;
+
+         ItemToPurchase newItem(itemName, itemDescription, itemPrice, itemQuantity);
+         cart.AddItem(newItem);
+         break;
+      }
+      case 'd':{
+         // Remove item from cart
+         cout << "\nREMOVE ITEM FROM CART" << endl;
+         string itemName;
+
+         cout << "Enter name of item to remove:" <<endl;
+         cin.ignore();
+         getline(cin, itemName);
+
+         cart.RemoveItem(itemName);
+         break;
+      }
+      case 'c':{
+         // Change item quantity
+         cout << "\nCHANGE ITEM QUANTITY" << endl;
+         string itemName, itemDescription;
+         int newQuantity;
+
+         cout << "Enter the item name:"<<endl;
+         cin.ignore();
+         getline(cin, itemName);
+
+         cout << "Enter the new quantity:"<<endl;
+         cin >> newQuantity;
+
+         ItemToPurchase modifiedItem(itemName, itemDescription, 0, newQuantity);
+         cart.ModifyItem(modifiedItem);
+         break;
+      }
+      case 'i':{
+         // Output items' descriptions
+         cout << "\nOUTPUT ITEMS' DESCRIPTIONS" << endl;
+         cart.PrintDescriptions();
+         break;
+      }
+      case 'o':{
+         // Output shopping cart
+         cout << "\nOUTPUT SHOPPING CART" << endl;
+         cout << cart.GetCustomerName() << "'s Shopping Cart - "<< cart.GetDate() << endl;
+         cout << "Number of Items: " << cart.GetNumItemsInCart() << endl << endl;
+         cart.PrintTotal();
+         break;
+      }
+      case 'q':{
+         // Quit
+         // cout << "Choose an option:" << endl;
+         break;
+      }   
+      default:
+         cout << "Choose an option:" << endl;
+    }
 }
 
 int main() {
-   for (bool i=false; i == false){
-   PrintMenu();
-   char option;
-   cin << option;
-   if (option == 'a' || 'd' || 'c' || 'i' || 'o'){
-      ExecuteMenu(option, theCart);
-   }
-   if (option == 'q'){
-      i = true;
-      }
-   else {
-      cout << "invalid input" << endl;
-   }
-   }
+   string customerName, currentDate;
+   char choice;
+
+    // Prompt the user for customer's name
+   cout << "Enter customer's name:"<<endl;
+   getline(cin, customerName);
+
+    // Prompt the user for today's date
+   cout << "Enter today's date:"<<endl;
+   getline(cin, currentDate);
+   
+    // Output the name and date
+   cout << "\nCustomer name: " << customerName << endl;
+   cout << "Today's date: " << currentDate << endl;
+   
+   cout<<endl;
+
+    // Create an object of type ShoppingCart
+   ShoppingCart cart(customerName, currentDate);
+
+      PrintMenu();
+      cin >> choice;
+      while (choice != 'a' || 'd' || 'c' || 'i' || 'o' || 'q'){
+         cout << "Choose an option:" << endl;
+         cin >> choice;
+         if (choice == 'a'){
+            break;
+         }
+         if (choice == 'd'){
+            break;
+         }
+         if (choice == 'c'){
+            break;
+         }
+         if (choice == 'i'){
+            break;
+         }
+         if (choice == 'o'){
+            break;
+         }
+         if (choice == 'q'){
+            break;
+         }
+         }
+
+      // Execute the menu option
+      ExecuteMenu(choice, cart);
+
    return 0;
 }
