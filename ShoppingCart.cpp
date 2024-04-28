@@ -80,16 +80,21 @@ void ShoppingCart::PrintTotal(){
    if(cartItems.empty()){
       cout<<"SHOPPING CART IS EMPTY" << endl;
       cout<<endl;
+      cout<<"Total: $0"<<endl;\
+      cout<<endl;
    }
    else{
-      cout << GetCustomerName() << "'s Shopping Cart - " << GetDate() << endl;
-      cout << "Number of Items: " << GetNumItemsInCart() << endl << endl;
+      // cout << GetCustomerName() << "'s Shopping Cart - " << GetDate() << endl;
+      // cout << "Number of Items: " << GetNumItemsInCart() << endl;
+      
+      double totalCost = 0.0;
 
       for (int i = 0; i < cartItems.size(); ++i) {
          cout << cartItems.at(i).GetName() << " @ $" << cartItems.at(i).GetPrice() << " = $" << (cartItems.at(i).GetPrice() * cartItems.at(i).GetQuantity()) << endl;
+         totalCost += (cartItems.at(i).GetPrice() * cartItems.at(i).GetQuantity());
       }
 
-      cout << endl << "Total: $" << GetCostOfCart() << endl;
+      cout << endl << "Total: $" << totalCost << endl<<endl;
     }
 }
 void ShoppingCart::PrintDescriptions(){
