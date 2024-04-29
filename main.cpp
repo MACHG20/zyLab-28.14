@@ -1,3 +1,6 @@
+//https://github.com/macglaesser/zyLab-28.14
+//Mac Glaesser and Johnathan Havard
+
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -46,8 +49,8 @@ void ExecuteMenu(char choice, ShoppingCart &cart) {
 
          cout << "REMOVE ITEM FROM CART" << endl;
          cout << "Enter name of item to remove:" <<endl;
+         cin.ignore();
          getline(cin, itemName);
-
          cart.RemoveItem(itemName);
 
          break;
@@ -59,6 +62,7 @@ void ExecuteMenu(char choice, ShoppingCart &cart) {
          
          cout << "CHANGE ITEM QUANTITY" << endl;
          cout << "Enter the item name:"<<endl;
+         cin.ignore();
          getline(cin, itemName);
          cout << "Enter the new quantity:"<<endl;
          cin >> newQuantity;
