@@ -23,8 +23,12 @@ string ShoppingCart::GetDate() const{
    return currentDate;
    }
 int ShoppingCart::GetNumItemsInCart(){
-   return cartItems.size();
-   }
+   int totalQuantity = 0;
+    for (int i = 0; i < cartItems.size(); ++i) {
+        totalQuantity += cartItems[i].GetQuantity();
+    }
+    return totalQuantity;
+}
 double ShoppingCart::GetCostOfCart(){
    double costOfCart = 0.0;
     for(int i = 0; i<cartItems.size(); ++i){
@@ -44,11 +48,12 @@ void ShoppingCart::RemoveItem(string itemName){
       if(cartItems.at(i).GetName() == itemName){
          cartItems.erase(cartItems.begin()+i);         
          Found = true;
+         cout<<endl;
          break;
       }
    }
    if(!Found){
-      cout << "Item not found in cart. Nothing removed." <<endl;
+      cout << "Item not found in cart. Nothing removed." <<endl<<endl;
    }
 }
 
@@ -80,7 +85,7 @@ void ShoppingCart::PrintTotal(){
    if(cartItems.empty()){
       cout<<"SHOPPING CART IS EMPTY" << endl;
       cout<<endl;
-      cout<<"Total: $0"<<endl;\
+      cout<<"Total: $0"<<endl;
       cout<<endl;
    }
    else{
@@ -90,7 +95,7 @@ void ShoppingCart::PrintTotal(){
       double totalCost = 0.0;
 
       for (int i = 0; i < cartItems.size(); ++i) {
-         cout << cartItems.at(i).GetName() << " @ $" << cartItems.at(i).GetPrice() << " = $" << (cartItems.at(i).GetPrice() * cartItems.at(i).GetQuantity()) << endl;
+         cout << cartItems.at(i).GetName() << " " << cartItems.at(i).GetQuantity() << " @ $" << cartItems.at(i).GetPrice() << " = $" << (cartItems.at(i).GetPrice() * cartItems.at(i).GetQuantity()) << endl;
          totalCost += (cartItems.at(i).GetPrice() * cartItems.at(i).GetQuantity());
       }
 
